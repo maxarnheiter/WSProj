@@ -1,0 +1,14 @@
+C:\Users\max_a\Documents\GitHub\WSProj\WSProj\WSProj\bin\Debug\WSProj.exe.config
+C:\Users\max_a\Documents\GitHub\WSProj\WSProj\WSProj\bin\Debug\WSProj.exe
+C:\Users\max_a\Documents\GitHub\WSProj\WSProj\WSProj\bin\Debug\WSProj.pdb
+C:\Users\max_a\Documents\GitHub\WSProj\WSProj\WSProj\obj\Debug\WSProj.csprojResolveAssemblyReference.cache
+C:\Users\max_a\Documents\GitHub\WSProj\WSProj\WSProj\obj\Debug\MainWindow.g.cs
+C:\Users\max_a\Documents\GitHub\WSProj\WSProj\WSProj\obj\Debug\App.g.cs
+C:\Users\max_a\Documents\GitHub\WSProj\WSProj\WSProj\obj\Debug\WSProj_MarkupCompile.cache
+C:\Users\max_a\Documents\GitHub\WSProj\WSProj\WSProj\obj\Debug\WSProj_MarkupCompile.lref
+C:\Users\max_a\Documents\GitHub\WSProj\WSProj\WSProj\obj\Debug\MainWindow.baml
+C:\Users\max_a\Documents\GitHub\WSProj\WSProj\WSProj\obj\Debug\WSProj.g.resources
+C:\Users\max_a\Documents\GitHub\WSProj\WSProj\WSProj\obj\Debug\WSProj.Properties.Resources.resources
+C:\Users\max_a\Documents\GitHub\WSProj\WSProj\WSProj\obj\Debug\WSProj.csproj.GenerateResource.Cache
+C:\Users\max_a\Documents\GitHub\WSProj\WSProj\WSProj\obj\Debug\WSProj.exe
+C:\Users\max_a\Documents\GitHub\WSProj\WSProj\WSProj\obj\Debug\WSProj.pdb
