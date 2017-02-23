@@ -33,21 +33,58 @@ namespace WSProj
             InitializeComponent();
 
             InitializeUI();
+
+            ListenToSerialPortEvents();
         }
+
+        void ListenToSerialPortEvents()
+        {
+            _serialPort.DataReceived += _serialPort_DataReceived;
+            _serialPort.Disposed += _serialPort_Disposed;
+            _serialPort.ErrorReceived += _serialPort_ErrorReceived;
+            _serialPort.PinChanged += _serialPort_PinChanged;
+        }
+
+        //////////////////////////////////////////////////////////////////////        SERIAL PORT EVENTS          //////////////////////////////////////////////////////////////////
+
+        private void _serialPort_PinChanged(object sender, SerialPinChangedEventArgs e)
+        {
+            Console.WriteLine("Serial Port Pin Changed: " + sender + " " + e);
+        }
+
+        private void _serialPort_ErrorReceived(object sender, SerialErrorReceivedEventArgs e)
+        {
+            Console.WriteLine("Serial Port Error Received: " + sender + " " + e);
+        }
+
+        private void _serialPort_Disposed(object sender, EventArgs e)
+        {
+            Console.WriteLine("Serial Port Disposed: " + sender + " " + e);
+        }
+
+        private void _serialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
+        {
+            Console.WriteLine("Serial Port Data Received: " + sender + " " + e);
+
+            Console.WriteLine(_serialPort.ReadExisting());
+        }
+
 
         //////////////////////////////////////////////////////////////////////        INITIALIZE UI           //////////////////////////////////////////////////////////////////////
 
         void InitializeUI()
         {
+            ListenToUIEvents();
+
             InitializeComPorts();
 
             InitializeBaudRateComboBox();
 
             InitializeParityComboBox();
 
+            InitializeDataBitsComboBox();
 
-
-            ListenToUIEvents();
+            InitializeStopBitsComboBox();
         }
 
         void ListenToUIEvents()
@@ -57,6 +94,10 @@ namespace WSProj
             BaudRateComboBox.SelectionChanged += BaudRateComboBox_SelectionChanged;
 
             ParityComboBox.SelectionChanged += ParityComboBox_SelectionChanged;
+
+            DataBitsComboBox.SelectionChanged += DataBitsComboBox_SelectionChanged;
+
+            StopBitsComboBox.SelectionChanged += StopBitsComboBox_SelectionChanged;
         }
 
         void InitializeComPorts()
@@ -88,7 +129,7 @@ namespace WSProj
             BaudRateComboBox.Items.Add(19200);
             BaudRateComboBox.Items.Add(38400);
 
-            BaudRateComboBox.SelectedIndex = 0;
+            BaudRateComboBox.SelectedIndex = 2;
         }
 
         void InitializeParityComboBox()
@@ -102,11 +143,40 @@ namespace WSProj
             ParityComboBox.SelectedIndex = 0;
         }
 
+        void InitializeDataBitsComboBox()
+        {
+            DataBitsComboBox.Items.Add(7);
+            DataBitsComboBox.Items.Add(8);
+
+            DataBitsComboBox.SelectedIndex = 1;
+
+        }
+
+        void InitializeStopBitsComboBox()
+        {
+            StopBitsComboBox.Items.Add(StopBits.One);
+            StopBitsComboBox.Items.Add(StopBits.Two);
+
+            StopBitsComboBox.SelectedIndex = 0;
+        }
+
+        //////////////////////////////////////////////////////////////////////        DEBUGGING          //////////////////////////////////////////////////////////////////////
+
         void DebugLog(string text)
         {
             DebuggingTextBox.Text += text + System.Environment.NewLine;
         }
 
+        //////////////////////////////////////////////////////////////////////        REFRESH UI         //////////////////////////////////////////////////////////////////////
+
+        void RefreshConnectButton()
+        {
+            if (_serialPort.IsOpen)
+                ConnectButton.IsEnabled = false;
+            else
+                ConnectButton.IsEnabled = true;
+
+        }
 
         //////////////////////////////////////////////////////////////////////        UI EVENTS          //////////////////////////////////////////////////////////////////////
 
@@ -139,5 +209,49 @@ namespace WSProj
 
             DebugLog("Parity Bits Changed to: " + _serialPort.Parity);
         }
+
+        private void StopBitsComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            StopBits stopBits = StopBits.One;
+
+            Enum.TryParse(StopBitsComboBox.Items[StopBitsComboBox.SelectedIndex].ToString(), out stopBits);
+
+            _serialPort.StopBits = stopBits;
+
+            DebugLog("Stop Bits Changed to: " + _serialPort.StopBits);
+
+        }
+
+        private void DataBitsComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            int dataBits = 0;
+
+            int.TryParse(DataBitsComboBox.Items[DataBitsComboBox.SelectedIndex].ToString(), out dataBits);
+
+            _serialPort.DataBits = dataBits;
+
+            DebugLog("Data Bits Changed to: " + _serialPort.DataBits);
+        }
+
+        private void ConnectButton_Click(object sender, RoutedEventArgs e)
+        {
+            Connect();
+        }
+
+        //////////////////////////////////////////////////////////////////////        Serial Port Logic         //////////////////////////////////////////////////////////////////////
+
+        void Connect()
+        {
+            if(_serialPort.IsOpen == false)
+                _serialPort.Open();
+
+            string command = "20050026:";
+
+            _serialPort.WriteLine(command);
+
+            RefreshConnectButton();
+        }
+
+
     }
 }
