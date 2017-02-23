@@ -7,8 +7,13 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        <TextBox x:Name="DebuggingTextBox" HorizontalAlignment="Left" Height="121" Margin="10,189,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="490"/>
-        <ComboBox x:Name="ComPortComboBox" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="120"/>
+        <ComboBox x:Name="ComPortComboBox" HorizontalAlignment="Left" Margin="10,26,0,0" VerticalAlignment="Top" Width="120"/>
+        <ComboBox x:Name="BaudRateComboBox" HorizontalAlignment="Left" Margin="144,26,0,0" VerticalAlignment="Top" Width="120"/>
+        <Label x:Name="ComPortLabel" Content="Com Ports:" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Width="120"/>
+        <Label x:Name="BaudRateLabel" Content="Baud Rate:" HorizontalAlignment="Left" Margin="144,0,0,0" VerticalAlignment="Top" Width="120"/>
+        <ComboBox x:Name="ParityComboBox" HorizontalAlignment="Left" Margin="10,87,0,0" VerticalAlignment="Top" Width="120"/>
+        <Label x:Name="ParityLabel" Content="Parity Bits:" HorizontalAlignment="Left" Margin="10,61,0,0" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="DebuggingTextBox" HorizontalAlignment="Left" Height="122" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="497" VerticalScrollBarVisibility="Auto" Margin="10,188,0,0"/>
 
     </Grid>
 </Window>
