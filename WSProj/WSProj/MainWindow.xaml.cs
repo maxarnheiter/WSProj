@@ -53,6 +53,8 @@ namespace WSProj
             _serialPort.Disposed += _serialPort_Disposed;
             _serialPort.ErrorReceived += _serialPort_ErrorReceived;
             _serialPort.PinChanged += _serialPort_PinChanged;
+
+            Debug.Log("Listening to serial port events");
         }
 
         //////////////////////////////////////////////////////////////////////        SERIAL PORT EVENTS          //////////////////////////////////////////////////////////////////
@@ -95,6 +97,8 @@ namespace WSProj
             InitializeDataBitsComboBox();
 
             InitializeStopBitsComboBox();
+
+            Debug.Log("UI initialized");
         }
 
         void ListenToUIEvents()
@@ -261,7 +265,10 @@ namespace WSProj
 
         void Test()
         {
+
             _communicator.SendData("20", CommandType.ReadLiteralValue, RegisterType.GrossWeight, "");
+
+            //_communicator.SendData("20", CommandType.WriteFinalValue, RegisterType.SetpointSource, "1F4");
         }
     }
 }
