@@ -19,6 +19,7 @@
         <ComboBox x:Name="StopBitsComboBox" HorizontalAlignment="Left" Margin="284,74,0,0" VerticalAlignment="Top" Width="120"/>
         <Label x:Name="StopBitsLabel" Content="Stop Bits:" HorizontalAlignment="Left" Margin="284,48,0,0" VerticalAlignment="Top" Width="120"/>
         <Button x:Name="ConnectButton" Content="Connect" HorizontalAlignment="Left" Margin="10,146,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="-0.549,-0.139" Height="35" Click="ConnectButton_Click"/>
+        <Button x:Name="TestButton" Content="Test" HorizontalAlignment="Left" Margin="144,146,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.157,0.827" Height="35" Click="TestButton_Click"/>
 
     </Grid>
 </Window>

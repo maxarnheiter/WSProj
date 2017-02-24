@@ -27,14 +27,24 @@ namespace WSProj
 
         SerialPort _serialPort = new SerialPort();
 
+        Communicator _communicator;
 
         public MainWindow()
         {
             InitializeComponent();
 
+            Debug.TextBox = DebuggingTextBox;
+
             InitializeUI();
 
             ListenToSerialPortEvents();
+
+            InitializeCommunicator();
+        }
+
+        void InitializeCommunicator()
+        {
+            _communicator = new Communicator(_serialPort);
         }
 
         void ListenToSerialPortEvents()
@@ -106,15 +116,15 @@ namespace WSProj
 
             if (_portNames == null)
             {
-                DebugLog("ERROR: No Com Ports found.");
+                Debug.Log("ERROR: No Com Ports found");
                 return;
             }
 
-            DebugLog("Com Ports Found: ");
+            Debug.Log("Com Ports Found: ");
 
             foreach (var port in _portNames)
             {
-                DebugLog("Found: " + port);
+                Debug.Log("Found: " + port);
                 ComPortComboBox.Items.Add(port);
             }
 
@@ -160,13 +170,6 @@ namespace WSProj
             StopBitsComboBox.SelectedIndex = 0;
         }
 
-        //////////////////////////////////////////////////////////////////////        DEBUGGING          //////////////////////////////////////////////////////////////////////
-
-        void DebugLog(string text)
-        {
-            DebuggingTextBox.Text += text + System.Environment.NewLine;
-        }
-
         //////////////////////////////////////////////////////////////////////        REFRESH UI         //////////////////////////////////////////////////////////////////////
 
         void RefreshConnectButton()
@@ -185,7 +188,7 @@ namespace WSProj
         {
             _serialPort.PortName = ComPortComboBox.Items[ComPortComboBox.SelectedIndex].ToString();
 
-            DebugLog("Serial Port Changed to: " + _serialPort.PortName);
+            Debug.Log("Serial Port Changed to: " + _serialPort.PortName);
         }
 
         private void BaudRateComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -196,7 +199,7 @@ namespace WSProj
 
             _serialPort.BaudRate = baudRate;
 
-            DebugLog("Baud Rate Changed to: " + _serialPort.BaudRate);
+            Debug.Log("Baud Rate Changed to: " + _serialPort.BaudRate);
         }
 
         private void ParityComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -207,7 +210,7 @@ namespace WSProj
 
             _serialPort.Parity = parity;
 
-            DebugLog("Parity Bits Changed to: " + _serialPort.Parity);
+            Debug.Log("Parity Bits Changed to: " + _serialPort.Parity);
         }
 
         private void StopBitsComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -218,7 +221,7 @@ namespace WSProj
 
             _serialPort.StopBits = stopBits;
 
-            DebugLog("Stop Bits Changed to: " + _serialPort.StopBits);
+            Debug.Log("Stop Bits Changed to: " + _serialPort.StopBits);
 
         }
 
@@ -230,7 +233,12 @@ namespace WSProj
 
             _serialPort.DataBits = dataBits;
 
-            DebugLog("Data Bits Changed to: " + _serialPort.DataBits);
+            Debug.Log("Data Bits Changed to: " + _serialPort.DataBits);
+        }
+
+        private void TestButton_Click(object sender, RoutedEventArgs e)
+        {
+            Test();
         }
 
         private void ConnectButton_Click(object sender, RoutedEventArgs e)
@@ -242,16 +250,18 @@ namespace WSProj
 
         void Connect()
         {
-            if(_serialPort.IsOpen == false)
+            if (_serialPort.IsOpen == false)
+            {
                 _serialPort.Open();
-
-            string command = "20050026:";
-
-            _serialPort.WriteLine(command);
+                Debug.Log("Connected");
+            }
 
             RefreshConnectButton();
         }
 
-
+        void Test()
+        {
+            _communicator.SendData("20", CommandType.ReadLiteralValue, RegisterType.GrossWeight, "");
+        }
     }
 }
