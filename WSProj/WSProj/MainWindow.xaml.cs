@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 using System.IO.Ports;
+using System.Threading;
 
 
 namespace WSProj
@@ -28,6 +29,7 @@ namespace WSProj
         SerialPort _serialPort = new SerialPort();
 
         Communicator _communicator;
+        Thread _communicatorThread;
 
         public MainWindow()
         {
@@ -37,48 +39,18 @@ namespace WSProj
 
             InitializeUI();
 
-            ListenToSerialPortEvents();
-
             InitializeCommunicator();
         }
 
         void InitializeCommunicator()
         {
             _communicator = new Communicator(_serialPort);
-        }
 
-        void ListenToSerialPortEvents()
-        {
-            _serialPort.DataReceived += _serialPort_DataReceived;
-            _serialPort.Disposed += _serialPort_Disposed;
-            _serialPort.ErrorReceived += _serialPort_ErrorReceived;
-            _serialPort.PinChanged += _serialPort_PinChanged;
+            ThreadStart threadStart = new ThreadStart(_communicator.Update);
 
-            Debug.Log("Listening to serial port events");
-        }
+            _communicatorThread = new Thread(threadStart);
 
-        //////////////////////////////////////////////////////////////////////        SERIAL PORT EVENTS          //////////////////////////////////////////////////////////////////
-
-        private void _serialPort_PinChanged(object sender, SerialPinChangedEventArgs e)
-        {
-            Console.WriteLine("Serial Port Pin Changed: " + sender + " " + e);
-        }
-
-        private void _serialPort_ErrorReceived(object sender, SerialErrorReceivedEventArgs e)
-        {
-            Console.WriteLine("Serial Port Error Received: " + sender + " " + e);
-        }
-
-        private void _serialPort_Disposed(object sender, EventArgs e)
-        {
-            Console.WriteLine("Serial Port Disposed: " + sender + " " + e);
-        }
-
-        private void _serialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
-        {
-            Console.WriteLine("Serial Port Data Received: " + sender + " " + e);
-
-            Console.WriteLine(_serialPort.ReadExisting());
+            _communicatorThread.Start();
         }
 
 
@@ -185,6 +157,11 @@ namespace WSProj
 
         }
 
+        void SetWeight(float weight, bool isPounds)
+        {
+            WeightTextBox.Text = weight.ToString("0.00") + (isPounds ? " LB" : " KG");
+        }
+
         //////////////////////////////////////////////////////////////////////        UI EVENTS          //////////////////////////////////////////////////////////////////////
 
 
@@ -266,9 +243,11 @@ namespace WSProj
         void Test()
         {
 
-            _communicator.SendData("20", CommandType.ReadLiteralValue, RegisterType.GrossWeight, "");
+            //_communicator.SendData("20", CommandType.ReadLiteralValue, RegisterType.GrossWeight, "");
 
             //_communicator.SendData("20", CommandType.WriteFinalValue, RegisterType.SetpointSource, "1F4");
+
+            SetWeight(100, false);
         }
     }
 }
