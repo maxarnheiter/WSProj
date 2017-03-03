@@ -15,6 +15,10 @@ namespace WSProj
 
         bool _run = true;
 
+        List<Message> _sent = new List<Message>();
+
+        List<Message> _received = new List<Message>();
+
         public Communicator(SerialPort serialPort)
         {
             _serialPort = serialPort;
@@ -69,6 +73,8 @@ namespace WSProj
             }));
         }
 
+        //////////////////////////////////////////////////////////////////////        THREAD LOOOP          //////////////////////////////////////////////////////////////////
+
         public void Update()
         {
             while(_run)
@@ -80,10 +86,7 @@ namespace WSProj
 
                 if(output != null || output != "")
                 {
-                    Application.Current.Dispatcher.Invoke(new Action(() =>
-                    {
-                        Debug.Log(output);
-                    }));
+                    OnMessageReceived(output);
                 }
             }
         }
@@ -100,54 +103,39 @@ namespace WSProj
 
             return output;
         }
-        
-        public void SendData(string address, CommandType commandType, RegisterType registerType, string optionalParameters)
+
+        //////////////////////////////////////////////////////////////////////        EVENTS         ////////////////////////////////////////////////////////////////////
+
+        void OnMessageReceived(string message)
         {
-            string command = address + GetCommandValue(commandType) + GetRegisterValue(registerType) + ":" + optionalParameters;
 
-            Debug.Log("Sending command: " + command);
+            Message received = new Message(message);
 
-            _serialPort.WriteLine(command);
-        }
 
-        string GetCommandValue(CommandType commandType)
-        {
-            switch (commandType)
+            Application.Current.Dispatcher.Invoke(new Action(() =>
             {
-                case CommandType.ReadLiteralValue:
-                    return "05";
-                case CommandType.ReadFinalValue:
-                    return "11";
-                case CommandType.WriteFinalValue:
-                    return "12";
-            }
-
-            return "";
+                Debug.Log(message);
+                Debug.Log(received.ToString());
+            }));
         }
 
-        string GetRegisterValue(RegisterType registerType)
+        //////////////////////////////////////////////////////////////////////        INCOMING         //////////////////////////////////////////////////////////////////
+
+        public void SendData(string address, CommandType command, RegisterType register, string parameters)
         {
-            switch (registerType)
-            {
-                case RegisterType.GrossWeight:
-                    return "0026";
-                case RegisterType.NetWeight:
-                    return "0027";
-                case RegisterType.SetpointType:
-                    return "0170";
-                case RegisterType.SetpointSource:
-                    return "0171";
-                case RegisterType.SetpointTarget:
-                    return "0172";
-                case RegisterType.KeyPress:
-                    return "0008";
-                case RegisterType.SystemStatus:
-                    return "0021";
-                case RegisterType.SystemError:
-                    return "0022";
-            }
+            Message newMessage = new Message(address, command, register, parameters);
 
-            return "";
+            Debug.Log("Sending command: " + newMessage.ToString());
+
+            _sent.Add(newMessage);
+
+            _serialPort.WriteLine(newMessage.ToString());
         }
+
+        public void End()
+        {
+            _run = false;
+        }
+
     }
 }

@@ -165,6 +165,12 @@ namespace WSProj
         //////////////////////////////////////////////////////////////////////        UI EVENTS          //////////////////////////////////////////////////////////////////////
 
 
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (_communicator != null)
+                _communicator.End();
+        }
+
         private void ComPortComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             _serialPort.PortName = ComPortComboBox.Items[ComPortComboBox.SelectedIndex].ToString();
@@ -243,11 +249,12 @@ namespace WSProj
         void Test()
         {
 
-            //_communicator.SendData("20", CommandType.ReadLiteralValue, RegisterType.GrossWeight, "");
+            _communicator.SendData("20", CommandType.ReadLiteralValue, RegisterType.GrossWeight, "");
 
             //_communicator.SendData("20", CommandType.WriteFinalValue, RegisterType.SetpointSource, "1F4");
 
-            SetWeight(100, false);
+            //SetWeight(100, false);
         }
+
     }
 }
