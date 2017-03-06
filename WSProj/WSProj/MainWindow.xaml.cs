@@ -50,6 +50,9 @@ namespace WSProj
 
             _communicatorThread = new Thread(threadStart);
 
+            //If we don't set IsBackground to true, it doesn't end the thread when we close the window.
+            _communicatorThread.IsBackground = true;
+
             _communicatorThread.Start();
         }
 
@@ -164,6 +167,15 @@ namespace WSProj
 
         //////////////////////////////////////////////////////////////////////        UI EVENTS          //////////////////////////////////////////////////////////////////////
 
+        private void StartingWeightButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void EndingWeightButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
@@ -256,5 +268,6 @@ namespace WSProj
             //SetWeight(100, false);
         }
 
+    
     }
 }

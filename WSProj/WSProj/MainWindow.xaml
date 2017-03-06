@@ -16,12 +16,25 @@
         <TextBox x:Name="DebuggingTextBox" HorizontalAlignment="Left" Height="122" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="353" VerticalScrollBarVisibility="Auto" Margin="10,219,0,0"/>
         <ComboBox x:Name="DataBitsComboBox" HorizontalAlignment="Left" Margin="145,74,0,0" VerticalAlignment="Top" Width="120"/>
         <Label x:Name="DataBitsLabel" Content="Data Bits:" HorizontalAlignment="Left" Margin="145,48,0,0" VerticalAlignment="Top" Width="120"/>
-        <ComboBox x:Name="StopBitsComboBox" HorizontalAlignment="Left" Margin="284,74,0,0" VerticalAlignment="Top" Width="120"/>
-        <Label x:Name="StopBitsLabel" Content="Stop Bits:" HorizontalAlignment="Left" Margin="284,48,0,0" VerticalAlignment="Top" Width="120"/>
-        <Button x:Name="ConnectButton" Content="Connect" HorizontalAlignment="Left" Margin="10,146,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="-0.549,-0.139" Height="35" Click="ConnectButton_Click"/>
-        <Button x:Name="TestButton" Content="Test" HorizontalAlignment="Left" Margin="144,146,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.157,0.827" Height="35" Click="TestButton_Click"/>
-        <TextBox x:Name="WeightTextBox" HorizontalAlignment="Left" Height="54" Margin="535,10,0,0" TextWrapping="Wrap" Text="0.0 LB" VerticalAlignment="Top" Width="258" FontSize="48" FontFamily="Digital-7" />
-        <TextBox x:Name="WeighEventsTextBox" HorizontalAlignment="Left" Height="121" Margin="377,219,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="416"/>
-
+        <ComboBox x:Name="StopBitsComboBox" HorizontalAlignment="Left" Margin="11,124,0,0" VerticalAlignment="Top" Width="120"/>
+        <Label x:Name="StopBitsLabel" Content="Stop Bits:" HorizontalAlignment="Left" Margin="11,98,0,0" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="ConnectButton" Content="Connect" HorizontalAlignment="Left" Margin="145,111,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="-0.549,-0.139" Height="35" Click="ConnectButton_Click"/>
+        <Button x:Name="TestButton" Content="Test" HorizontalAlignment="Left" Margin="145,171,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.157,0.827" Height="35" Click="TestButton_Click"/>
+        <TextBox x:Name="WeightTextBox" HorizontalAlignment="Left" Height="54" Margin="377,10,0,0" TextWrapping="Wrap" Text="0.0 LB" VerticalAlignment="Top" Width="416" FontSize="48" FontFamily="Digital-7" />
+        <TextBox x:Name="SerialNumberTextBox" HorizontalAlignment="Left" Height="23" Margin="377,95,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="107"/>
+        <Label x:Name="SerialNumberLabel" Content="Serial Number:" HorizontalAlignment="Left" Margin="377,69,0,0" VerticalAlignment="Top" Width="107"/>
+        <TextBox x:Name="RecordPreviewTextBox" HorizontalAlignment="Left" Height="23" Margin="377,123,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="416" IsEnabled="False"/>
+        <Button x:Name="StartingWeightButton" Content="Set Start Weight" HorizontalAlignment="Left" Margin="498,95,0,0" VerticalAlignment="Top" Width="100" Click="StartingWeightButton_Click"/>
+        <Button x:Name="EndingWeightButton" Content="Set End Weight" HorizontalAlignment="Left" Margin="613,95,0,0" VerticalAlignment="Top" Width="95" Click="EndingWeightButton_Click"/>
+        <Button x:Name="RemoveRecordButton" Content="Remove" HorizontalAlignment="Left" Margin="457,190,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="AddRecordButton" Content="Add" HorizontalAlignment="Left" Margin="377,190,0,0" VerticalAlignment="Top" Width="75"/>
+        <DataGrid x:Name="WeightRecordDataGrid" HorizontalAlignment="Left" Margin="377,219,0,0" VerticalAlignment="Top" Height="121" Width="416" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" CanUserResize="False" Width="40"/>
+                <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Serial Number" CanUserResize="False" Width="100"/>
+                <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Start Weight" CanUserResize="False" Width="140"/>
+                <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="End Weight" CanUserResize="False" Width="140"/>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </Window>
