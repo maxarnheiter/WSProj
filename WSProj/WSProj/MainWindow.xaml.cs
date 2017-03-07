@@ -31,6 +31,12 @@ namespace WSProj
         Communicator _communicator;
         Thread _communicatorThread;
 
+        List<WeighingRecord> _records = new List<WeighingRecord>();
+
+        string _tempSerialNumber;
+        float _tempStartingWeight;
+        float _tempEndingWeight;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -72,6 +78,10 @@ namespace WSProj
             InitializeDataBitsComboBox();
 
             InitializeStopBitsComboBox();
+
+            UpdateRecordPreviewTextBox();
+
+            WeightRecordDataGrid.ItemsSource = _records;
 
             Debug.Log("UI initialized");
         }
@@ -165,7 +175,39 @@ namespace WSProj
             WeightTextBox.Text = weight.ToString("0.00") + (isPounds ? " LB" : " KG");
         }
 
+        void UpdateRecordPreviewTextBox()
+        {
+            RecordPreviewTextBox.Text = "SN: " +  _tempSerialNumber + "   Starting Weight: [" + _tempStartingWeight + "]    Ending Weight: [" + _tempEndingWeight + "]";
+        }
+
         //////////////////////////////////////////////////////////////////////        UI EVENTS          //////////////////////////////////////////////////////////////////////
+
+        private void SerialNumberTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            _tempSerialNumber = SerialNumberTextBox.Text;
+
+            UpdateRecordPreviewTextBox();
+        }
+
+        private void AddRecordButton_Click(object sender, RoutedEventArgs e)
+        {
+            _records.Add(new WeighingRecord(_tempSerialNumber, _tempStartingWeight, _tempEndingWeight));
+
+            WeightRecordDataGrid.Items.Refresh();
+
+            _tempSerialNumber = "";
+            _tempStartingWeight = 0;
+            _tempEndingWeight = 0;
+
+            SerialNumberTextBox.Text = "";
+
+            UpdateRecordPreviewTextBox();
+        }
+
+        private void RemoveRecordButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
 
         private void StartingWeightButton_Click(object sender, RoutedEventArgs e)
         {
@@ -261,13 +303,16 @@ namespace WSProj
         void Test()
         {
 
-            _communicator.SendData("20", CommandType.ReadLiteralValue, RegisterType.GrossWeight, "");
+            _records.Add(new WeighingRecord("G34A43001", 50, 100));
+            _records.Add(new WeighingRecord("C45345CX", 20, 10));
+
+            //_communicator.SendData("20", CommandType.ReadLiteralValue, RegisterType.GrossWeight, "");
 
             //_communicator.SendData("20", CommandType.WriteFinalValue, RegisterType.SetpointSource, "1F4");
 
             //SetWeight(100, false);
         }
 
-    
+       
     }
 }
