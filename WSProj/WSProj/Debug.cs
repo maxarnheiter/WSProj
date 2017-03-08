@@ -22,7 +22,17 @@ namespace WSProj
 
         public static void Log(string text)
         {
-            TextBox.Text += text + System.Environment.NewLine;
+            TextBox.AppendText(System.Environment.NewLine + text);
+            TextBox.ScrollToEnd();
+        }
+
+        public static void LogAsync(string text)
+        {
+            Application.Current.Dispatcher.Invoke(new Action(() =>
+            {
+                TextBox.AppendText(System.Environment.NewLine + text);
+                TextBox.ScrollToEnd();
+            }));
         }
     }
 }

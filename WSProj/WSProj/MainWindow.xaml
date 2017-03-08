@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WSProj"
         mc:Ignorable="d"
-        Title="MainWindow" Height="380.403" Width="811" Closing="Window_Closing">
+        Title="MainWindow" Height="380.403" Width="811" Closing="Window_Closing" Loaded="Window_Loaded">
     <Grid>
         <ComboBox x:Name="ComPortComboBox" HorizontalAlignment="Left" Margin="10,26,0,0" VerticalAlignment="Top" Width="120"/>
         <ComboBox x:Name="BaudRateComboBox" HorizontalAlignment="Left" Margin="144,26,0,0" VerticalAlignment="Top" Width="120"/>
@@ -18,14 +18,14 @@
         <Label x:Name="DataBitsLabel" Content="Data Bits:" HorizontalAlignment="Left" Margin="145,48,0,0" VerticalAlignment="Top" Width="120"/>
         <ComboBox x:Name="StopBitsComboBox" HorizontalAlignment="Left" Margin="11,124,0,0" VerticalAlignment="Top" Width="120"/>
         <Label x:Name="StopBitsLabel" Content="Stop Bits:" HorizontalAlignment="Left" Margin="11,98,0,0" VerticalAlignment="Top" Width="120"/>
-        <Button x:Name="ConnectButton" Content="Connect" HorizontalAlignment="Left" Margin="145,111,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="-0.549,-0.139" Height="35" Click="ConnectButton_Click"/>
-        <Button x:Name="TestButton" Content="Test" HorizontalAlignment="Left" Margin="145,171,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.157,0.827" Height="35" Click="TestButton_Click"/>
+        <Button x:Name="ConnectButton" Content="Connect" HorizontalAlignment="Left" Margin="145,123,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="-0.549,-0.139" Height="23" Click="ConnectButton_Click"/>
+        <Button x:Name="TestButton" Content="Test" HorizontalAlignment="Left" Margin="145,173,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.157,0.827" Height="23" Click="TestButton_Click"/>
         <TextBox x:Name="WeightTextBox" HorizontalAlignment="Left" Height="54" Margin="377,10,0,0" TextWrapping="Wrap" Text="0.0 LB" VerticalAlignment="Top" Width="416" FontSize="48" FontFamily="Digital-7" />
-        <TextBox x:Name="SerialNumberTextBox" HorizontalAlignment="Left" Height="23" Margin="377,95,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="107" TextChanged="SerialNumberTextBox_TextChanged"/>
-        <Label x:Name="SerialNumberLabel" Content="Serial Number:" HorizontalAlignment="Left" Margin="377,69,0,0" VerticalAlignment="Top" Width="107"/>
-        <TextBox x:Name="RecordPreviewTextBox" HorizontalAlignment="Left" Height="23" Margin="377,123,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="416" IsEnabled="False"/>
-        <Button x:Name="StartingWeightButton" Content="Set Start Weight" HorizontalAlignment="Left" Margin="498,95,0,0" VerticalAlignment="Top" Width="100" Click="StartingWeightButton_Click"/>
-        <Button x:Name="EndingWeightButton" Content="Set End Weight" HorizontalAlignment="Left" Margin="613,95,0,0" VerticalAlignment="Top" Width="95" Click="EndingWeightButton_Click"/>
+        <TextBox x:Name="SerialNumberTextBox" HorizontalAlignment="Left" Height="23" Margin="379,130,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="107" TextChanged="SerialNumberTextBox_TextChanged"/>
+        <Label x:Name="SerialNumberLabel" Content="Serial Number:" HorizontalAlignment="Left" Margin="379,104,0,0" VerticalAlignment="Top" Width="107"/>
+        <TextBox x:Name="RecordPreviewTextBox" HorizontalAlignment="Left" Height="23" Margin="379,158,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="416" IsEnabled="False"/>
+        <Button x:Name="StartingWeightButton" Content="Set Start Weight" HorizontalAlignment="Left" Margin="500,130,0,0" VerticalAlignment="Top" Width="100" Click="StartingWeightButton_Click"/>
+        <Button x:Name="EndingWeightButton" Content="Set End Weight" HorizontalAlignment="Left" Margin="615,130,0,0" VerticalAlignment="Top" Width="95" Click="EndingWeightButton_Click"/>
         <Button x:Name="RemoveRecordButton" Content="Remove" HorizontalAlignment="Left" Margin="457,190,0,0" VerticalAlignment="Top" Width="75" Click="RemoveRecordButton_Click"/>
         <Button x:Name="AddRecordButton" Content="Add" HorizontalAlignment="Left" Margin="377,190,0,0" VerticalAlignment="Top" Width="75" Click="AddRecordButton_Click"/>
         <DataGrid x:Name="WeightRecordDataGrid" HorizontalAlignment="Left" Margin="377,219,0,0" VerticalAlignment="Top" Height="121" Width="416" AutoGenerateColumns="False">
@@ -35,5 +35,6 @@
                 <DataGridTextColumn Binding="{Binding EndingWeight}" ClipboardContentBinding="{x:Null}" Header="End Weight" CanUserResize="False" Width="150"/>
             </DataGrid.Columns>
         </DataGrid>
+        <CheckBox x:Name="AutoWeighCheckbox" Content="Auto Weigh" HorizontalAlignment="Left" Margin="377,69,0,0" VerticalAlignment="Top" Width="128" Checked="AutoWeighCheckbox_Checked" Unchecked="AutoWeighCheckbox_Unchecked"/>
     </Grid>
 </Window>

@@ -15,9 +15,10 @@ namespace WSProj
 
         bool _run = true;
 
-        List<Message> _sent = new List<Message>();
+        bool _autoWeigh;
 
-        List<Message> _received = new List<Message>();
+        public delegate void WeighEvent(float weight, bool isPounds);
+        public event WeighEvent WeightRecorded;
 
         public Communicator(SerialPort serialPort)
         {
@@ -42,35 +43,23 @@ namespace WSProj
 
         private void _serialPort_PinChanged(object sender, SerialPinChangedEventArgs e)
         {
-            Application.Current.Dispatcher.Invoke(new Action(() =>
-            {
-                Debug.Log("Serial Port Pin Changed: " + sender + " " + e);
-            }));
+            Debug.LogAsync("Serial Port Pin Changed: " + sender + " " + e);
         }
 
         private void _serialPort_ErrorReceived(object sender, SerialErrorReceivedEventArgs e)
         {
-            Application.Current.Dispatcher.Invoke(new Action(() =>
-            {
-                Debug.Log("Serial Port Error Received: " + sender + " " + e);
-            }));
+            Debug.LogAsync("Serial Port Error Received: " + sender + " " + e);
         }
 
         private void _serialPort_Disposed(object sender, EventArgs e)
         {
-            Application.Current.Dispatcher.Invoke(new Action(() =>
-            {
-                Debug.Log("Serial Port Disposed: " + sender + " " + e);
-            }));
+             Debug.LogAsync("Serial Port Disposed: " + sender + " " + e);
         }
 
         private void _serialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
-            Application.Current.Dispatcher.Invoke(new Action(() =>
-            {
-                Debug.Log("Serial Port Data Received: " + sender + " " + e);
-                Debug.Log(_serialPort.ReadExisting());
-            }));
+            Debug.LogAsync("Serial Port Data Received: " + sender + " " + e);
+            Debug.LogAsync(_serialPort.ReadExisting());
         }
 
         //////////////////////////////////////////////////////////////////////        THREAD LOOOP          //////////////////////////////////////////////////////////////////
@@ -82,12 +71,16 @@ namespace WSProj
                 if (_serialPort == null || _serialPort.IsOpen == false)
                     continue;
 
+                if (_autoWeigh)
+                    SendData("20", CommandType.ReadLiteralValue, RegisterType.GrossWeight, "");
+            
                 string output = Read();
 
-                if(output != null || output != "")
+                if (output != null || output != "")
                 {
                     OnMessageReceived(output);
                 }
+
             }
         }
 
@@ -108,28 +101,66 @@ namespace WSProj
 
         void OnMessageReceived(string message)
         {
-
             Message received = new Message(message);
 
+            if(received.CommandType == CommandType.ReadLiteralValue && received.RegisterType == RegisterType.GrossWeight)
+            {
+                string text = received.ToString();
 
+                int colonIndex = text.IndexOf(':');
+
+                text = text.Remove(0, colonIndex + 1);
+
+                text = text.Replace("G", "");
+
+                bool isPounds = text.Contains("lb");
+
+                if (isPounds)
+                    text = text.Replace("lb", "");
+                else
+                    text = text.Replace("kg", "");
+
+                text = text.Replace(" ", "");
+
+                float weight = 0f;
+
+                float.TryParse(text, out weight);
+
+                OnWeightRecordedAsync(weight, isPounds);
+            }
+        }
+
+        void OnWeightRecordedAsync(float weight, bool isPounds)
+        {
             Application.Current.Dispatcher.Invoke(new Action(() =>
             {
-                Debug.Log(message);
-                Debug.Log(received.ToString());
+                WeighEvent handler = WeightRecorded;
+                if (handler != null)
+                    handler(weight, isPounds);
             }));
         }
 
-        //////////////////////////////////////////////////////////////////////        INCOMING         //////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////////////        REQUESTS         //////////////////////////////////////////////////////////////////
 
         public void SendData(string address, CommandType command, RegisterType register, string parameters)
         {
             Message newMessage = new Message(address, command, register, parameters);
 
-            Debug.Log("Sending command: " + newMessage.ToString());
+            _serialPort.WriteLine(newMessage.ToString());
+        }
 
-            _sent.Add(newMessage);
+        void RequestWeight()
+        {
+            Message newMessage = new Message("20", CommandType.ReadLiteralValue, RegisterType.GrossWeight, "");
 
             _serialPort.WriteLine(newMessage.ToString());
+        }
+
+        //////////////////////////////////////////////////////////////////////        INCOMING         //////////////////////////////////////////////////////////////////
+
+        public void SetAutoWeigh(bool enabled)
+        {
+            _autoWeigh = enabled;
         }
 
         public void End()

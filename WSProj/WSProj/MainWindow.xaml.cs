@@ -33,6 +33,7 @@ namespace WSProj
 
         List<WeighingRecord> _records = new List<WeighingRecord>();
 
+        float _currentWeight;
         string _tempSerialNumber;
         float _tempStartingWeight;
         float _tempEndingWeight;
@@ -51,6 +52,8 @@ namespace WSProj
         void InitializeCommunicator()
         {
             _communicator = new Communicator(_serialPort);
+
+            _communicator.WeightRecorded += OnWeightRecordReceived;
 
             ThreadStart threadStart = new ThreadStart(_communicator.Update);
 
@@ -182,6 +185,28 @@ namespace WSProj
 
         //////////////////////////////////////////////////////////////////////        UI EVENTS          //////////////////////////////////////////////////////////////////////
 
+
+        private void AutoWeighCheckbox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            lock (_communicator)
+            {
+                _communicator.SetAutoWeigh(false);
+            }
+        }
+
+        private void AutoWeighCheckbox_Checked(object sender, RoutedEventArgs e)
+        {
+            lock (_communicator)
+            {
+                _communicator.SetAutoWeigh(true);
+            }
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            DebuggingTextBox.ScrollToEnd();
+        }
+
         private void SerialNumberTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             _tempSerialNumber = SerialNumberTextBox.Text;
@@ -300,19 +325,29 @@ namespace WSProj
             RefreshConnectButton();
         }
 
+        //////////////////////////////////////////////////////////////////////        COMMUNICATOR EVENTS        //////////////////////////////////////////////////////////////////////
+
+        void OnWeightRecordReceived(float weight, bool isPounds)
+        {
+            _currentWeight = weight;
+
+            SetWeight(weight, isPounds);
+        }
+
+        //////////////////////////////////////////////////////////////////////         MISC         //////////////////////////////////////////////////////////////////////
+
         void Test()
         {
+           // DebuggingTextBox.ScrollToEnd();
+            // _records.Add(new WeighingRecord("G34A43001", 50, 100));
+            // _records.Add(new WeighingRecord("C45345CX", 20, 10));
 
-            _records.Add(new WeighingRecord("G34A43001", 50, 100));
-            _records.Add(new WeighingRecord("C45345CX", 20, 10));
-
-            //_communicator.SendData("20", CommandType.ReadLiteralValue, RegisterType.GrossWeight, "");
+            _communicator.SendData("20", CommandType.ReadLiteralValue, RegisterType.GrossWeight, "");
 
             //_communicator.SendData("20", CommandType.WriteFinalValue, RegisterType.SetpointSource, "1F4");
 
             //SetWeight(100, false);
         }
 
-       
     }
 }
