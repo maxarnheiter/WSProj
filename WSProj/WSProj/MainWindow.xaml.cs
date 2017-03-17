@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 
 using System.IO.Ports;
 using System.Threading;
+using System.Collections.ObjectModel;
 
 
 namespace WSProj
@@ -31,7 +32,7 @@ namespace WSProj
         Communicator _communicator;
         Thread _communicatorThread;
 
-        List<WeighingRecord> _records = new List<WeighingRecord>();
+        ObservableCollection<WeighingRecord> _records = new ObservableCollection<WeighingRecord>();
 
         float _currentWeight;
         string _tempSerialNumber;
@@ -164,12 +165,18 @@ namespace WSProj
 
         //////////////////////////////////////////////////////////////////////        REFRESH UI         //////////////////////////////////////////////////////////////////////
 
-        void RefreshConnectButton()
+        void RefreshConnectionButtons()
         {
             if (_serialPort.IsOpen)
+            {
                 ConnectButton.IsEnabled = false;
+                DisconnectButton.IsEnabled = true;
+            }
             else
+            {
                 ConnectButton.IsEnabled = true;
+                DisconnectButton.IsEnabled = false;
+            }
 
         }
 
@@ -231,23 +238,35 @@ namespace WSProj
 
         private void RemoveRecordButton_Click(object sender, RoutedEventArgs e)
         {
+            List<WeighingRecord> weighingRecordsToRemove = new List<WeighingRecord>();
 
+            foreach (var item in WeightRecordDataGrid.SelectedItems)
+                weighingRecordsToRemove.Add(item as WeighingRecord);
+
+            foreach (var weighingRecord in weighingRecordsToRemove)
+            {
+                _records.Remove(weighingRecord);
+            }
         }
 
         private void StartingWeightButton_Click(object sender, RoutedEventArgs e)
         {
+            _tempStartingWeight = _currentWeight;
 
+            UpdateRecordPreviewTextBox();
         }
 
         private void EndingWeightButton_Click(object sender, RoutedEventArgs e)
         {
+            _tempEndingWeight = _currentWeight;
 
+            UpdateRecordPreviewTextBox();
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             if (_communicator != null)
-                _communicator.End();
+                _communicator.Stop();
         }
 
         private void ComPortComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -312,6 +331,16 @@ namespace WSProj
             Connect();
         }
 
+        private void DisconnectButton_Click(object sender, RoutedEventArgs e)
+        {
+            Disconnect();
+        }
+
+        private void ExportButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
         //////////////////////////////////////////////////////////////////////        Serial Port Logic         //////////////////////////////////////////////////////////////////////
 
         void Connect()
@@ -322,7 +351,18 @@ namespace WSProj
                 Debug.Log("Connected");
             }
 
-            RefreshConnectButton();
+            RefreshConnectionButtons();
+        }
+
+        void Disconnect()
+        {
+            if(_serialPort.IsOpen == true)
+            {
+                _serialPort.Close();
+                Debug.Log("Disconnected");
+            }
+
+            RefreshConnectionButtons();
         }
 
         //////////////////////////////////////////////////////////////////////        COMMUNICATOR EVENTS        //////////////////////////////////////////////////////////////////////
@@ -349,5 +389,6 @@ namespace WSProj
             //SetWeight(100, false);
         }
 
+    
     }
 }

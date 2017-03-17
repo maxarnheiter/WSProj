@@ -26,15 +26,15 @@ namespace WSProj
 
             Debug.Log("Communicator initialized");
 
-            //ListenToSerialPortEvents();
+            ListenToSerialPortEvents();
         }
 
         void ListenToSerialPortEvents()
         {
-            _serialPort.DataReceived += _serialPort_DataReceived;
+            //_serialPort.DataReceived += _serialPort_DataReceived;
             _serialPort.Disposed += _serialPort_Disposed;
-            _serialPort.ErrorReceived += _serialPort_ErrorReceived;
-            _serialPort.PinChanged += _serialPort_PinChanged;
+            //_serialPort.ErrorReceived += _serialPort_ErrorReceived;
+            //_serialPort.PinChanged += _serialPort_PinChanged;
 
             Debug.Log("Listening to serial port events");
         }
@@ -53,7 +53,8 @@ namespace WSProj
 
         private void _serialPort_Disposed(object sender, EventArgs e)
         {
-             Debug.LogAsync("Serial Port Disposed: " + sender + " " + e);
+            Debug.LogAsync("Serial Port Disposed");
+            Stop();
         }
 
         private void _serialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
@@ -73,10 +74,10 @@ namespace WSProj
 
                 if (_autoWeigh)
                     SendData("20", CommandType.ReadLiteralValue, RegisterType.GrossWeight, "");
-            
+
                 string output = Read();
 
-                if (output != null || output != "")
+                if (output != null && output != "")
                 {
                     OnMessageReceived(output);
                 }
@@ -90,9 +91,10 @@ namespace WSProj
 
             try
             {
-                output = _serialPort.ReadLine();
+                if(_serialPort != null && _serialPort.IsOpen)
+                    output = _serialPort.ReadLine();
             }
-            catch (TimeoutException) { }
+            catch (Exception e) { }
 
             return output;
         }
@@ -163,7 +165,7 @@ namespace WSProj
             _autoWeigh = enabled;
         }
 
-        public void End()
+        public void Stop()
         {
             _run = false;
         }
