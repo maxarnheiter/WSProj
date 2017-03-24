@@ -87,8 +87,12 @@ namespace WSProj
 
             WeightRecordDataGrid.ItemsSource = _records;
 
+            HideAdvancedConnectionOptions();
+
             Debug.Log("UI initialized");
         }
+
+
 
         void ListenToUIEvents()
         {
@@ -188,6 +192,36 @@ namespace WSProj
         void UpdateRecordPreviewTextBox()
         {
             RecordPreviewTextBox.Text = "SN: " +  _tempSerialNumber + "   Starting Weight: [" + _tempStartingWeight + "]    Ending Weight: [" + _tempEndingWeight + "]";
+        }
+
+        void HideAdvancedConnectionOptions()
+        {
+            DataBitsComboBox.Visibility = Visibility.Hidden;
+            DataBitsLabel.Visibility = Visibility.Hidden;
+
+            BaudRateComboBox.Visibility = Visibility.Hidden;
+            BaudRateLabel.Visibility = Visibility.Hidden;
+
+            ParityComboBox.Visibility = Visibility.Hidden;
+            ParityLabel.Visibility = Visibility.Hidden;
+
+            StopBitsComboBox.Visibility = Visibility.Hidden;
+            StopBitsLabel.Visibility = Visibility.Hidden;
+        }
+
+        void ShowAdvancedConnectionOptions()
+        {
+            DataBitsComboBox.Visibility = Visibility.Visible;
+            DataBitsLabel.Visibility = Visibility.Visible;
+
+            BaudRateComboBox.Visibility = Visibility.Visible;
+            BaudRateLabel.Visibility = Visibility.Visible;
+
+            ParityComboBox.Visibility = Visibility.Visible;
+            ParityLabel.Visibility = Visibility.Visible;
+
+            StopBitsComboBox.Visibility = Visibility.Visible;
+            StopBitsLabel.Visibility = Visibility.Visible;
         }
 
         //////////////////////////////////////////////////////////////////////        UI EVENTS          //////////////////////////////////////////////////////////////////////
@@ -341,6 +375,16 @@ namespace WSProj
 
         }
 
+        private void AdvancedCommunicationCheckbox_Checked(object sender, RoutedEventArgs e)
+        {
+            ShowAdvancedConnectionOptions();
+        }
+
+        private void AdvancedCommunicationCheckbox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            HideAdvancedConnectionOptions();
+        }
+
         //////////////////////////////////////////////////////////////////////        Serial Port Logic         //////////////////////////////////////////////////////////////////////
 
         void Connect()
@@ -389,6 +433,5 @@ namespace WSProj
             //SetWeight(100, false);
         }
 
-    
     }
 }

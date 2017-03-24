@@ -10,22 +10,41 @@
         <TabControl x:Name="tabControl" HorizontalAlignment="Left" Height="428" VerticalAlignment="Top" Width="790">
             <TabItem Header="Connect">
                 <Grid Background="#FFE5E5E5">
-                    <ComboBox x:Name="ComPortComboBox" HorizontalAlignment="Left" Margin="10,43,0,0" VerticalAlignment="Top" Width="181"/>
-                    <Label x:Name="ComPortLabel" Content="Com Ports:" HorizontalAlignment="Left" Margin="10,17,0,0" VerticalAlignment="Top" Width="120"/>
-                    <Button x:Name="ConnectButton" Content="Connect" HorizontalAlignment="Left" Margin="360,28,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="-0.549,-0.139" Height="23" Click="ConnectButton_Click"/>
-                    <Button x:Name="TestButton" Content="Test" HorizontalAlignment="Left" Margin="359,83,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.157,0.827" Height="23" Click="TestButton_Click"/>
-                    <Button x:Name="DisconnectButton" Content="Disconnect" HorizontalAlignment="Left" Margin="360,56,0,0" VerticalAlignment="Top" Width="119" Height="22" Click="DisconnectButton_Click"/>
-                    <CheckBox x:Name="AdvancedCommunicationCheckbox" Content="Show Advanced Connection Options" HorizontalAlignment="Left" Margin="10,220,0,0" VerticalAlignment="Top" Width="219"/>
-                    <GroupBox x:Name="groupBox" Header="Avanced Options" HorizontalAlignment="Left" Margin="0,241,0,0" VerticalAlignment="Top" Height="155" Width="397">
-                        <Grid HorizontalAlignment="Left" Height="135" VerticalAlignment="Top" Width="377" Margin="10,10,-2,-12">
-                            <ComboBox x:Name="BaudRateComboBox" HorizontalAlignment="Left" Margin="10,103,0,0" VerticalAlignment="Top" Width="168"/>
-                            <Label x:Name="BaudRateLabel" Content="Baud Rate:" HorizontalAlignment="Left" Margin="10,77,0,0" VerticalAlignment="Top" Width="120"/>
-                            <ComboBox x:Name="DataBitsComboBox" HorizontalAlignment="Left" Margin="10,30,0,0" VerticalAlignment="Top" Width="168"/>
-                            <Label x:Name="DataBitsLabel" Content="Data Bits:" HorizontalAlignment="Left" Margin="10,4,0,0" VerticalAlignment="Top" Width="120"/>
-                            <ComboBox x:Name="StopBitsComboBox" HorizontalAlignment="Left" Margin="194,103,0,0" VerticalAlignment="Top" Width="173"/>
-                            <Label x:Name="StopBitsLabel" Content="Stop Bits:" HorizontalAlignment="Left" Margin="194,77,0,0" VerticalAlignment="Top" Width="120"/>
-                            <ComboBox x:Name="ParityComboBox" HorizontalAlignment="Left" Margin="193,30,0,0" VerticalAlignment="Top" Width="174"/>
-                            <Label x:Name="ParityLabel" Content="Parity Bits:" HorizontalAlignment="Left" Margin="194,4,0,0" VerticalAlignment="Top" Width="120"/>
+                    <Button x:Name="TestButton" Content="Test" HorizontalAlignment="Left" Margin="570,113,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.157,0.827" Height="48" Click="TestButton_Click"/>
+                    <GroupBox x:Name="Step1GroupBox" Header="Step 1" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="376" Width="219">
+                        <Grid HorizontalAlignment="Left" Height="366" VerticalAlignment="Top" Width="209" Margin="0,0,-2,-12">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0*"/>
+                                <ColumnDefinition Width="0*"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <ComboBox x:Name="BaudRateComboBox" HorizontalAlignment="Left" Margin="10,216,0,0" VerticalAlignment="Top" Width="189" Grid.Column="2" Height="22"/>
+                            <Label x:Name="BaudRateLabel" Content="Baud Rate:" HorizontalAlignment="Left" Margin="10,195,0,0" VerticalAlignment="Top" Width="189" Grid.Column="2" Height="26" RenderTransformOrigin="0.5,0.5" IsHitTestVisible="False">
+                                <Label.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform/>
+                                        <SkewTransform/>
+                                        <TranslateTransform/>
+                                    </TransformGroup>
+                                </Label.RenderTransform>
+                            </Label>
+                            <ComboBox x:Name="DataBitsComboBox" HorizontalAlignment="Left" Margin="10,163,0,0" VerticalAlignment="Top" Width="189" Grid.Column="2" Height="22"/>
+                            <Label x:Name="DataBitsLabel" Content="Data Bits:" HorizontalAlignment="Left" Margin="10,141,0,0" VerticalAlignment="Top" Width="189" Grid.Column="2" Height="26" IsHitTestVisible="False"/>
+                            <ComboBox x:Name="StopBitsComboBox" HorizontalAlignment="Left" Margin="10,322,0,0" VerticalAlignment="Top" Width="189" Grid.Column="2" Height="22"/>
+                            <Label x:Name="StopBitsLabel" Content="Stop Bits:" HorizontalAlignment="Left" Margin="10,300,0,0" VerticalAlignment="Top" Width="189" Grid.Column="2" Height="26" IsHitTestVisible="False"/>
+                            <ComboBox x:Name="ParityComboBox" HorizontalAlignment="Left" Margin="10,269,0,0" VerticalAlignment="Top" Width="189" Grid.Column="2" Height="22"/>
+                            <Label x:Name="ParityLabel" Content="Parity Bits:" HorizontalAlignment="Left" Margin="10,247,0,0" VerticalAlignment="Top" Width="189" Grid.Column="2" Height="26" IsHitTestVisible="False"/>
+                            <Label x:Name="ComPortLabel" Content="Com Ports:" HorizontalAlignment="Left" Margin="10,62,0,0" VerticalAlignment="Top" Width="189" Grid.Column="2" Height="26" IsHitTestVisible="False"/>
+                            <ComboBox x:Name="ComPortComboBox" HorizontalAlignment="Left" Margin="10,83,0,0" VerticalAlignment="Top" Width="189" Grid.Column="2" Height="22"/>
+                            <CheckBox x:Name="AdvancedCommunicationCheckbox" Content="Advanced Options" HorizontalAlignment="Left" Margin="13,120,0,0" VerticalAlignment="Top" Width="178" Grid.ColumnSpan="3" Checked="AdvancedCommunicationCheckbox_Checked" Unchecked="AdvancedCommunicationCheckbox_Unchecked"/>
+                            <TextBlock x:Name="Step1TextBlock" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Select a COM Port. You may choose to adjust the advanced options." VerticalAlignment="Top" Height="47" Width="189" Grid.ColumnSpan="3"/>
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox x:Name="Step2GroupBox" Header="Step 2" HorizontalAlignment="Left" Margin="234,10,0,0" VerticalAlignment="Top" Height="376" Width="211">
+                        <Grid HorizontalAlignment="Left" Height="366" VerticalAlignment="Top" Width="211" Margin="0,0,-12,-12">
+                            <Button x:Name="ConnectButton" Content="Connect" HorizontalAlignment="Left" Margin="10,81,0,0" VerticalAlignment="Top" Width="179" RenderTransformOrigin="-0.549,-0.139" Height="23" Click="ConnectButton_Click"/>
+                            <Button x:Name="DisconnectButton" Content="Disconnect" HorizontalAlignment="Left" Margin="10,114,0,0" VerticalAlignment="Top" Width="179" Height="22" Click="DisconnectButton_Click"/>
+                            <TextBlock x:Name="Step2TextBlock" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Click the Connect button to establish a connection." VerticalAlignment="Top" Height="71" Width="191"/>
                         </Grid>
                     </GroupBox>
                 </Grid>
