@@ -5,38 +5,62 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WSProj"
         mc:Ignorable="d"
-        Title="MainWindow" Height="380.403" Width="811" Closing="Window_Closing" Loaded="Window_Loaded">
+        Title="MainWindow" Height="468.403" Width="798" Closing="Window_Closing" Loaded="Window_Loaded">
     <Grid>
-        <ComboBox x:Name="ComPortComboBox" HorizontalAlignment="Left" Margin="10,26,0,0" VerticalAlignment="Top" Width="120"/>
-        <ComboBox x:Name="BaudRateComboBox" HorizontalAlignment="Left" Margin="144,26,0,0" VerticalAlignment="Top" Width="120"/>
-        <Label x:Name="ComPortLabel" Content="Com Ports:" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Width="120"/>
-        <Label x:Name="BaudRateLabel" Content="Baud Rate:" HorizontalAlignment="Left" Margin="144,0,0,0" VerticalAlignment="Top" Width="120"/>
-        <ComboBox x:Name="ParityComboBox" HorizontalAlignment="Left" Margin="10,74,0,0" VerticalAlignment="Top" Width="120"/>
-        <Label x:Name="ParityLabel" Content="Parity Bits:" HorizontalAlignment="Left" Margin="11,48,0,0" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="DebuggingTextBox" HorizontalAlignment="Left" Height="122" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="353" VerticalScrollBarVisibility="Auto" Margin="10,219,0,0"/>
-        <ComboBox x:Name="DataBitsComboBox" HorizontalAlignment="Left" Margin="145,74,0,0" VerticalAlignment="Top" Width="120"/>
-        <Label x:Name="DataBitsLabel" Content="Data Bits:" HorizontalAlignment="Left" Margin="145,48,0,0" VerticalAlignment="Top" Width="120"/>
-        <ComboBox x:Name="StopBitsComboBox" HorizontalAlignment="Left" Margin="11,124,0,0" VerticalAlignment="Top" Width="120"/>
-        <Label x:Name="StopBitsLabel" Content="Stop Bits:" HorizontalAlignment="Left" Margin="11,98,0,0" VerticalAlignment="Top" Width="120"/>
-        <Button x:Name="ConnectButton" Content="Connect" HorizontalAlignment="Left" Margin="145,123,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="-0.549,-0.139" Height="23" Click="ConnectButton_Click"/>
-        <Button x:Name="TestButton" Content="Test" HorizontalAlignment="Left" Margin="144,178,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.157,0.827" Height="23" Click="TestButton_Click"/>
-        <TextBox x:Name="WeightTextBox" HorizontalAlignment="Left" Height="54" Margin="377,10,0,0" TextWrapping="Wrap" Text="0.0 LB" VerticalAlignment="Top" Width="416" FontSize="48" FontFamily="Digital-7" />
-        <TextBox x:Name="SerialNumberTextBox" HorizontalAlignment="Left" Height="23" Margin="379,130,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="107" TextChanged="SerialNumberTextBox_TextChanged"/>
-        <Label x:Name="SerialNumberLabel" Content="Serial Number:" HorizontalAlignment="Left" Margin="379,104,0,0" VerticalAlignment="Top" Width="107"/>
-        <TextBox x:Name="RecordPreviewTextBox" HorizontalAlignment="Left" Height="23" Margin="379,158,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="414" IsEnabled="False"/>
-        <Button x:Name="StartingWeightButton" Content="Set Start Weight" HorizontalAlignment="Left" Margin="500,130,0,0" VerticalAlignment="Top" Width="100" Click="StartingWeightButton_Click"/>
-        <Button x:Name="EndingWeightButton" Content="Set End Weight" HorizontalAlignment="Left" Margin="615,130,0,0" VerticalAlignment="Top" Width="95" Click="EndingWeightButton_Click"/>
-        <Button x:Name="RemoveRecordButton" Content="Remove" HorizontalAlignment="Left" Margin="457,190,0,0" VerticalAlignment="Top" Width="75" Click="RemoveRecordButton_Click"/>
-        <Button x:Name="AddRecordButton" Content="Add" HorizontalAlignment="Left" Margin="377,190,0,0" VerticalAlignment="Top" Width="75" Click="AddRecordButton_Click"/>
-        <DataGrid x:Name="WeightRecordDataGrid" HorizontalAlignment="Left" Margin="377,219,0,0" VerticalAlignment="Top" Height="121" Width="416" AutoGenerateColumns="False">
-            <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding SerialNumber}" ClipboardContentBinding="{x:Null}" Header="Serial Number" CanUserResize="False" Width="120"/>
-                <DataGridTextColumn Binding="{Binding StartingWeight}" ClipboardContentBinding="{x:Null}" Header="Start Weight" CanUserResize="False" Width="150"/>
-                <DataGridTextColumn Binding="{Binding EndingWeight}" ClipboardContentBinding="{x:Null}" Header="End Weight" CanUserResize="False" Width="150"/>
-            </DataGrid.Columns>
-        </DataGrid>
-        <CheckBox x:Name="AutoWeighCheckbox" Content="Auto Weigh" HorizontalAlignment="Left" Margin="377,69,0,0" VerticalAlignment="Top" Width="128" Checked="AutoWeighCheckbox_Checked" Unchecked="AutoWeighCheckbox_Unchecked"/>
-        <Button x:Name="DisconnectButton" Content="Disconnect" HorizontalAlignment="Left" Margin="145,151,0,0" VerticalAlignment="Top" Width="119" Height="22" Click="DisconnectButton_Click"/>
-        <Button x:Name="ExportButton" Content="Export" HorizontalAlignment="Left" Margin="720,192,0,0" VerticalAlignment="Top" Width="73" Click="ExportButton_Click"/>
+        <TabControl x:Name="tabControl" HorizontalAlignment="Left" Height="428" VerticalAlignment="Top" Width="790">
+            <TabItem Header="Connect">
+                <Grid Background="#FFE5E5E5">
+                    <ComboBox x:Name="ComPortComboBox" HorizontalAlignment="Left" Margin="10,43,0,0" VerticalAlignment="Top" Width="181"/>
+                    <Label x:Name="ComPortLabel" Content="Com Ports:" HorizontalAlignment="Left" Margin="10,17,0,0" VerticalAlignment="Top" Width="120"/>
+                    <Button x:Name="ConnectButton" Content="Connect" HorizontalAlignment="Left" Margin="360,28,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="-0.549,-0.139" Height="23" Click="ConnectButton_Click"/>
+                    <Button x:Name="TestButton" Content="Test" HorizontalAlignment="Left" Margin="359,83,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.157,0.827" Height="23" Click="TestButton_Click"/>
+                    <Button x:Name="DisconnectButton" Content="Disconnect" HorizontalAlignment="Left" Margin="360,56,0,0" VerticalAlignment="Top" Width="119" Height="22" Click="DisconnectButton_Click"/>
+                    <CheckBox x:Name="AdvancedCommunicationCheckbox" Content="Show Advanced Connection Options" HorizontalAlignment="Left" Margin="10,220,0,0" VerticalAlignment="Top" Width="219"/>
+                    <GroupBox x:Name="groupBox" Header="Avanced Options" HorizontalAlignment="Left" Margin="0,241,0,0" VerticalAlignment="Top" Height="155" Width="397">
+                        <Grid HorizontalAlignment="Left" Height="135" VerticalAlignment="Top" Width="377" Margin="10,10,-2,-12">
+                            <ComboBox x:Name="BaudRateComboBox" HorizontalAlignment="Left" Margin="10,103,0,0" VerticalAlignment="Top" Width="168"/>
+                            <Label x:Name="BaudRateLabel" Content="Baud Rate:" HorizontalAlignment="Left" Margin="10,77,0,0" VerticalAlignment="Top" Width="120"/>
+                            <ComboBox x:Name="DataBitsComboBox" HorizontalAlignment="Left" Margin="10,30,0,0" VerticalAlignment="Top" Width="168"/>
+                            <Label x:Name="DataBitsLabel" Content="Data Bits:" HorizontalAlignment="Left" Margin="10,4,0,0" VerticalAlignment="Top" Width="120"/>
+                            <ComboBox x:Name="StopBitsComboBox" HorizontalAlignment="Left" Margin="194,103,0,0" VerticalAlignment="Top" Width="173"/>
+                            <Label x:Name="StopBitsLabel" Content="Stop Bits:" HorizontalAlignment="Left" Margin="194,77,0,0" VerticalAlignment="Top" Width="120"/>
+                            <ComboBox x:Name="ParityComboBox" HorizontalAlignment="Left" Margin="193,30,0,0" VerticalAlignment="Top" Width="174"/>
+                            <Label x:Name="ParityLabel" Content="Parity Bits:" HorizontalAlignment="Left" Margin="194,4,0,0" VerticalAlignment="Top" Width="120"/>
+                        </Grid>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Weigh">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="8*"/>
+                        <ColumnDefinition Width="217*"/>
+                        <ColumnDefinition Width="35*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox x:Name="WeightTextBox" HorizontalAlignment="Left" Height="54" Margin="10,13,0,0" TextWrapping="Wrap" Text="0.0 LB" VerticalAlignment="Top" Width="760" FontSize="48" FontFamily="Digital-7" Grid.ColumnSpan="3" />
+                    <TextBox x:Name="SerialNumberTextBox" HorizontalAlignment="Left" Height="23" Margin="12,133,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="107" TextChanged="SerialNumberTextBox_TextChanged" Grid.ColumnSpan="2"/>
+                    <Label x:Name="SerialNumberLabel" Content="Serial Number:" HorizontalAlignment="Left" Margin="12,107,0,0" VerticalAlignment="Top" Width="107" Grid.ColumnSpan="2"/>
+                    <TextBox x:Name="RecordPreviewTextBox" HorizontalAlignment="Left" Height="23" Margin="12,161,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="758" IsEnabled="False" Grid.ColumnSpan="3"/>
+                    <Button x:Name="StartingWeightButton" Content="Set Start Weight" HorizontalAlignment="Left" Margin="109,133,0,0" VerticalAlignment="Top" Width="100" Click="StartingWeightButton_Click" Grid.Column="1"/>
+                    <Button x:Name="EndingWeightButton" Content="Set End Weight" HorizontalAlignment="Left" Margin="224,133,0,0" VerticalAlignment="Top" Width="95" Click="EndingWeightButton_Click" Grid.Column="1"/>
+                    <Button x:Name="RemoveRecordButton" Content="Remove" HorizontalAlignment="Left" Margin="66,193,0,0" VerticalAlignment="Top" Width="75" Click="RemoveRecordButton_Click" Grid.Column="1"/>
+                    <Button x:Name="AddRecordButton" Content="Add" HorizontalAlignment="Left" Margin="10,193,0,0" VerticalAlignment="Top" Width="75" Click="AddRecordButton_Click" Grid.ColumnSpan="2"/>
+                    <DataGrid x:Name="WeightRecordDataGrid" HorizontalAlignment="Left" Margin="10,222,0,0" VerticalAlignment="Top" Height="167" Width="760" AutoGenerateColumns="False" Grid.ColumnSpan="3">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding SerialNumber}" ClipboardContentBinding="{x:Null}" Header="Serial Number" CanUserResize="False" Width="120"/>
+                            <DataGridTextColumn Binding="{Binding StartingWeight}" ClipboardContentBinding="{x:Null}" Header="Start Weight" CanUserResize="False" Width="150"/>
+                            <DataGridTextColumn Binding="{Binding EndingWeight}" ClipboardContentBinding="{x:Null}" Header="End Weight" CanUserResize="False" Width="150"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <CheckBox x:Name="AutoWeighCheckbox" Content="Auto Weigh" HorizontalAlignment="Left" Margin="10,72,0,0" VerticalAlignment="Top" Width="128" Checked="AutoWeighCheckbox_Checked" Unchecked="AutoWeighCheckbox_Unchecked" Grid.ColumnSpan="2"/>
+                    <Button x:Name="ExportButton" Content="Export" HorizontalAlignment="Left" Margin="22,193,0,0" VerticalAlignment="Top" Width="73" Click="ExportButton_Click" Grid.Column="2"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Debugging">
+                <Grid Background="#FFE5E5E5">
+                    <TextBox x:Name="DebuggingTextBox" HorizontalAlignment="Left" Height="122" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="760" VerticalScrollBarVisibility="Auto" Margin="10,186,0,0"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>
