@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WSProj"
         mc:Ignorable="d"
-        Title="MainWindow" Height="468.403" Width="798" Closing="Window_Closing" Loaded="Window_Loaded">
+        Title="MainWindow" Height="458.403" Width="798" Closing="Window_Closing" Loaded="Window_Loaded">
     <Grid>
         <TabControl x:Name="tabControl" HorizontalAlignment="Left" Height="428" VerticalAlignment="Top" Width="790">
             <TabItem Header="Connect">
@@ -53,18 +53,23 @@
                         </Image.DataContext>
                     </Image>
                     <TextBlock x:Name="DirectTrackDescription" HorizontalAlignment="Left" Margin="463,62,0,0" TextWrapping="Wrap" Text="Direct-Track is the only cloud-based SF6 gas management software designed to track inventory and report emissions." VerticalAlignment="Top" Height="69" Width="295"/>
-                    <TextBlock x:Name="DiloHomePageLink" HorizontalAlignment="Left" Margin="463,131,0,0" TextWrapping="Wrap" Text="Dilo Home Page" VerticalAlignment="Top" Width="93">
-                        <Hyperlink NavigateUri="http://www.dilo.com" RequestNavigate="Hyperlink_RequestNavigate">
+                    <TextBlock x:Name="DiloHomePageLink" HorizontalAlignment="Left" Margin="463,131,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="167" >
+                       <Hyperlink NavigateUri="http://www.dilo.com/" RequestNavigate="OnDiloURLClicked">
                             Dilo Home Page
                         </Hyperlink>
                     </TextBlock>
-                    <TextBlock x:Name="DiloDirectHomePageLink" HorizontalAlignment="Left" Margin="631,131,0,0" TextWrapping="Wrap" Text="Dilo Direct Home Page" VerticalAlignment="Top" Width="127">
-                        <Hyperlink NavigateUri="http://www.dilodirect.com" RequestNavigate="Hyperlink_RequestNavigate">
+                    <TextBlock x:Name="DiloDirectHomePageLink" HorizontalAlignment="Left" Margin="463,147,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="167">
+                    <Hyperlink NavigateUri="http://www.dilodirect.com/" RequestNavigate="OnDiloDirectURLClicked">
                             Dilo Direct Home Page
                         </Hyperlink>
                     </TextBlock>
-                    <TextBlock x:Name="DiloAddress" HorizontalAlignment="Left" Margin="463,152,0,0" TextWrapping="Wrap" Text="11642 Pyramid Dr. Odessa FL, 33556" VerticalAlignment="Top" Height="17" Width="295"/>
-                    <TextBlock x:Name="DiloAddress_Copy" HorizontalAlignment="Left" Margin="463,169,0,0" TextWrapping="Wrap" Text="Main Phone: (727) 612-8797" VerticalAlignment="Top" Height="17" Width="295"/>
+                    <TextBlock x:Name="DiloAddress" HorizontalAlignment="Left" Margin="463,212,0,0" TextWrapping="Wrap" Text="11642 Pyramid Dr. Odessa FL, 33556" VerticalAlignment="Top" Height="17" Width="295"/>
+                    <TextBlock x:Name="DiloAddress_Copy" HorizontalAlignment="Left" Margin="463,229,0,0" TextWrapping="Wrap" Text="Main Phone: (727) 612-8797" VerticalAlignment="Top" Height="17" Width="295"/>
+                    <TextBlock x:Name="DirectTrackLink" HorizontalAlignment="Left" Margin="463,163,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="167">
+                    <Hyperlink NavigateUri="http://www.dilodirecttrack.com/" RequestNavigate="OnDirectTrackURLClicked">
+                            Direct-Track Home Page
+                        </Hyperlink>
+                    </TextBlock>
                 </Grid>
             </TabItem>
             <TabItem Header="Weigh">

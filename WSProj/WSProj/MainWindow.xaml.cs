@@ -372,7 +372,7 @@ namespace WSProj
 
         private void ExportButton_Click(object sender, RoutedEventArgs e)
         {
-
+            Export();
         }
 
         private void AdvancedCommunicationCheckbox_Checked(object sender, RoutedEventArgs e)
@@ -420,6 +420,11 @@ namespace WSProj
 
         //////////////////////////////////////////////////////////////////////         MISC         //////////////////////////////////////////////////////////////////////
 
+        void Export()
+        {
+
+        }
+
         void Test()
         {
            // DebuggingTextBox.ScrollToEnd();
@@ -433,5 +438,19 @@ namespace WSProj
             //SetWeight(100, false);
         }
 
+        private void OnDiloURLClicked(object sender, RequestNavigateEventArgs e)
+        {
+            System.Diagnostics.Process.Start("http://www.dilo.com/home");
+        }
+
+        private void OnDiloDirectURLClicked(object sender, RequestNavigateEventArgs e)
+        {
+            System.Diagnostics.Process.Start("http://www.dilodirect.com");
+        }
+
+        private void OnDirectTrackURLClicked(object sender, RequestNavigateEventArgs e)
+        {
+            System.Diagnostics.Process.Start("http://www.dilodirecttrack.com");
+        }
     }
 }

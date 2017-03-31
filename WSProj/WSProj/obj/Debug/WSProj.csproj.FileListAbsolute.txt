@@ -12,3 +12,4 @@ C:\Users\max_a\Documents\GitHub\WSProj\WSProj\WSProj\obj\Debug\WSProj.Properties
 C:\Users\max_a\Documents\GitHub\WSProj\WSProj\WSProj\obj\Debug\WSProj.csproj.GenerateResource.Cache
 C:\Users\max_a\Documents\GitHub\WSProj\WSProj\WSProj\obj\Debug\WSProj.exe
 C:\Users\max_a\Documents\GitHub\WSProj\WSProj\WSProj\obj\Debug\WSProj.pdb
+C:\Users\max_a\Documents\GitHub\WSProj\WSProj\WSProj\obj\Debug\GeneratedInternalTypeHelper.g.cs
