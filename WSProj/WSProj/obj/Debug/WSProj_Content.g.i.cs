@@ -8,6 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/dilo-direct%20track%20rgb%20logo%20transparent_trimmed_rescaled.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/button_grey.png")]
 
 

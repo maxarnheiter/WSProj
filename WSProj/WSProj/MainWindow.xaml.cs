@@ -92,6 +92,8 @@ namespace WSProj
 
             HideAdvancedConnectionOptions();
 
+            ConnectionButtonOrange.Visibility = Visibility.Hidden;
+
             Debug.Log("UI initialized");
         }
 
@@ -178,11 +180,17 @@ namespace WSProj
             {
                 ConnectButton.IsEnabled = false;
                 DisconnectButton.IsEnabled = true;
+
+                ConnectionButtonOrange.Visibility = Visibility.Visible;
+                ConnectionButtonGrey.Visibility = Visibility.Hidden;
             }
             else
             {
                 ConnectButton.IsEnabled = true;
                 DisconnectButton.IsEnabled = false;
+
+                ConnectionButtonOrange.Visibility = Visibility.Hidden;
+                ConnectionButtonGrey.Visibility = Visibility.Visible;
             }
 
         }
@@ -399,6 +407,8 @@ namespace WSProj
             }
 
             RefreshConnectionButtons();
+
+            
         }
 
         void Disconnect()

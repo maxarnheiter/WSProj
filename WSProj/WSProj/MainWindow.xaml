@@ -45,6 +45,8 @@
                             <Button x:Name="DisconnectButton" Content="Disconnect" HorizontalAlignment="Left" Margin="10,114,0,0" VerticalAlignment="Top" Width="179" Height="22" Click="DisconnectButton_Click"/>
                             <TextBlock x:Name="Step2TextBlock" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Click the Connect button to establish a connection." VerticalAlignment="Top" Height="71" Width="191"/>
                             <Button x:Name="TestButton" Content="Test" HorizontalAlignment="Left" Margin="10,295,0,0" VerticalAlignment="Top" Width="179" RenderTransformOrigin="0.157,0.827" Height="48" Click="TestButton_Click"/>
+                            <Image x:Name="ConnectionButtonGrey" HorizontalAlignment="Left" Height="122" Margin="40,160,0,0" VerticalAlignment="Top" Width="120" Source="Images/button_grey.png"/>
+                            <Image x:Name="ConnectionButtonOrange" HorizontalAlignment="Left" Height="120" Margin="40,160,0,0" VerticalAlignment="Top" Width="120" Source="Images/button_orange.png"/>
                         </Grid>
                     </GroupBox>
                     <Image x:Name="DirectTrackLogo" Height="38" Margin="463,19,22,339" VerticalAlignment="Center" Width="295" Source="Images/DILO-DIRECT TRACK RGB Logo TRANSPARENT_trimmed_rescaled.png">

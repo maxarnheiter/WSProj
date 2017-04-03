@@ -104,6 +104,12 @@
   <ItemGroup>
     <Resource Include="Images\DILO-DIRECT TRACK RGB Logo TRANSPARENT_trimmed_rescaled.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\button_orange.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\button_grey.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
