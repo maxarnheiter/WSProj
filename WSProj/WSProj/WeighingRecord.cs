@@ -9,31 +9,24 @@ namespace WSProj
     public class WeighingRecord
     {
 
-        public string SerialNumber
-        {
-            get { return _serialNumber; }
-        }
-        string _serialNumber;
+        public string SerialNumber;
 
-        public float StartingWeight
-        {
-            get { return _startingWeight; }
-        }
-        float _startingWeight;
+        public float StartingWeight;
 
-        public float EndingWeight
-        {
-            get { return _endingWeight; }
-        }
-        float _endingWeight;
+        public float EndingWeight;
 
         public WeighingRecord(string serial, float startingWeight, float endingWeight)
         {
-            _serialNumber = serial;
-            _startingWeight = startingWeight;
-            _endingWeight = endingWeight;
+            SerialNumber = serial;
+            StartingWeight = startingWeight;
+            EndingWeight = endingWeight;
         }
         
+        //Requierd for XML serialization
+        public WeighingRecord()
+        {
+
+        }
 
 
 

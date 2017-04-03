@@ -16,6 +16,9 @@ using System.Windows.Shapes;
 using System.IO.Ports;
 using System.Threading;
 using System.Collections.ObjectModel;
+using System.Xml.Serialization;
+using System.IO;
+using Microsoft.Win32;
 
 
 namespace WSProj
@@ -422,7 +425,28 @@ namespace WSProj
 
         void Export()
         {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
 
+            saveFileDialog.FileName = "Weight Records " + DateTime.Now.Month + "-" + DateTime.Now.Day + "-" + DateTime.Now.Year;
+            saveFileDialog.DefaultExt = ".xml";
+            saveFileDialog.Filter = "XML Document (.xml)|*.xml";
+
+            var result = saveFileDialog.ShowDialog();
+
+            if(result == true)
+            {
+                XmlSerializer serializer = new XmlSerializer(typeof(RecordCollection));
+
+                RecordCollection recordCollection = new RecordCollection();
+
+                recordCollection.WeighingRecords = _records.ToList();
+
+                Console.WriteLine(saveFileDialog.FileName);
+
+                FileStream fileStream = new FileStream(saveFileDialog.FileName, FileMode.Create);
+
+                serializer.Serialize(fileStream, recordCollection);
+            }
         }
 
         void Test()
